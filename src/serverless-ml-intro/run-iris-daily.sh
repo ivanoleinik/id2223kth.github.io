@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python iris-feature-pipeline-daily.py
+python ./src/serverless-ml-intro/iris-feature-pipeline-daily.py
