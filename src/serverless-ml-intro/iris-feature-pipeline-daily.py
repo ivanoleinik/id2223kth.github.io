@@ -71,6 +71,5 @@ if __name__ == "__main__":
     if LOCAL == True :
         g()
     else:
-        stub.deploy("iris_daily")
         with stub.run():
             f()
