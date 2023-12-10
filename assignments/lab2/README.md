@@ -10,10 +10,13 @@ The UI allows for audio or video file uploads in mp3, mp4, etc., formats in a fi
 1. [Introduction](#introduction)
 2. [Dataset](#dataset)
 3. [Training Notebook](#training-notebook)
+4. [Evaluation](#evaluation)
 
 ## Introduction
 
-This project aims to predict the quality of wines using machine learning. It covers various aspects, including data preparation, model training, model deployment, and user interaction.
+The goal of this project is to fine-tune Whisper to the Swedish language and to provide a useful UI capable of transcribing Swedish audio input to English text output. 
+
+Whisper, introduced in September 2022 by OpenAI's Alec Radford et al., is an advanced automatic speech recognition (ASR) model. Unlike its predecessors, Whisper is unique in being pre-trained on an extensive 680,000 hours of labeled audio-transcription data, with 117,000 hours dedicated to multilingual ASR. This large-scale pre-training allows Whisper to generalize well across datasets and domains, making it a powerful tool for various ASR tasks.
 
 ## Dataset
 
@@ -43,6 +46,10 @@ The notebook performs the following pre-processing steps:
 - Removes the other features and downloads the audio to disk
 
 - Fine-tunes the pretrained general whisper model on this data, saving and loading checkpoints every thousand steps
+
+## Evaluation 
+
+
 
 
 
