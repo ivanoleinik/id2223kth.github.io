@@ -41,11 +41,15 @@ The notebook performs the following pre-processing steps:
 
 - Loads a pretrained swedish tokenizer/feature-extractor
 
-- Downsamples the audio fromm 48Hz to 16Hz
+- Downsamples the audio from 48Hz to 16Hz
 
 - Removes the other features and downloads the audio to disk
 
 - Fine-tunes the pretrained general whisper model on this data, saving and loading checkpoints every thousand steps
+
+- The model is trained for 500 warm-up steps and reaches the learning rate of 1e-5 at the end of the warmup.
+
+- The learning rate is decreasing linearly for the rest of the training
 
 ## Evaluation 
 
