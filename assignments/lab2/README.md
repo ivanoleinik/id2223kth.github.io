@@ -1,15 +1,15 @@
-# Wine Quality Prediction Project
+# Whisper Swedish Audio Translation Project
 
-This project demonstrates an end-to-end machine learning pipeline for predicting the quality of wines. It includes data preprocessing, model training, model deployment, and a user interface for predictions.
+This project demonstrates a ready to use application from a fine-tuned and improved whisper model for the Swedish language
+
+## UI Usage Instructions
+
+The UI allows for audio or video file uploads in mp3, mp4, etc., formats in a file dropbox on the left. When the user clicks on submit button, the UI makes a call to the best-performing model among the checkpoints saved by the training pipeline and outputs the transcribed text in a box to the right. 
 
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Dataset](#dataset)
-3. [Feature Notebook](#feature-notebook)
-4. [Synthetic Wine Generator](#synthetic-wine-generator)
-5. [Training Notebook](#training-notebook)
-6. [User Interface](#user-interface)
-7. [Batch Inference Pipeline](#batch-inference-pipeline)
+3. [Training Notebook](#training-notebook)
 
 ## Introduction
 
@@ -17,24 +17,33 @@ This project aims to predict the quality of wines using machine learning. It cov
 
 ## Dataset
 
-The [Wine Quality Dataset](https://raw.githubusercontent.com/ID2223KTH/id2223kth.github.io/master/assignments/lab1/wine.csv) is used for this project. The dataset contains information about various attributes of wines, including quality.
+The fine-tuning dataset contains swedish sentences looks like this:
 
-## Feature Notebook
+train: Dataset({
+        features: ['audio', 'sentence'],
+        num_rows: 12360
+    })
+    test: Dataset({
+        features: ['audio', 'sentence'],
+        num_rows: 5069
+    })
 
-The feature notebook is responsible for registering the wine quality dataset as a Feature Group with Hopsworks. It ensures that the data is prepared and stored appropriately for training.
+It contains 12360 training sentences and 5069 test set sentences.
 
-## Synthetic Wine Generator
+## Fine-tuning Notebook
 
-A synthetic wine generator pipeline is implemented, adding a new synthetic wine to the dataset daily.
+The notebook performs the following pre-processing steps:
 
-## Training Notebook
+- The notebook clips the audio clips and pads with 0's when necessary to 30 seconds
 
-The training notebook reads training data from a Feature View in Hopsworks, trains a [Histogram Gradient Boosting Regressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor) to predict wine quality, and registers the model with Hopsworks.
+- Loads a pretrained swedish tokenizer/feature-extractor
 
-## User Interface
+- Downsamples the audio fromm 48Hz to 16Hz
 
-A [Gradio application](https://huggingface.co/spaces/obama911/wine-quality) is provided to allow users to input or select feature values and predict the quality of a wine using the trained model.
+- Removes the other features and downloads the audio to disk
 
-## Batch Inference Pipeline
+- Fine-tunes the pretrained general whisper model on this data, saving and loading checkpoints every thousand steps
 
-A batch inference pipeline predicts the quality of the new wines added, and a [monitor application](https://huggingface.co/spaces/obama911/wine-monitor) displays the most recent wine quality predictions along with a confusion matrix showing historical prediction performance.
+
+
+
