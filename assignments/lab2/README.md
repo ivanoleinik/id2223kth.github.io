@@ -49,7 +49,13 @@ The notebook performs the following pre-processing steps:
 
 ## Evaluation 
 
+We traced the WER score of the model on the evaluation dataset after every thousand steps:
 
+- checkpoint-1000: 70.09
+- checkpoint-2000: 20.45
+- checkpoint-3000: 20.13
+
+We can observe that the last thousand steps of training is a plateau. This is why we decided to restart training from the `checkpoint-2000` for another thousand steps but with a lower learning rate of 3e-6. This resulted in an improved WER score of 19.70 for our final model.
 
 
 
